@@ -1,0 +1,17 @@
+{
+  "name": "BIG CORE",
+  "short_name": "BIG CORE",
+  "description": "Журнал тренировок: блоки, подходы, таймер отдыха, история, прогресс и замеры. Работает без интернета, записи хранятся на телефоне.",
+  "lang": "ru",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#eceff2",
+  "theme_color": "#eceff2",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
