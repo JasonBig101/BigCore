@@ -316,7 +316,7 @@ body.has-clock .toast{ bottom:calc(166px + env(safe-area-inset-bottom,0px)); }
 /* sheet */
 .sheet-wrap{ position:fixed; inset:0; z-index:50; display:grid; align-items:end; justify-items:center; }
 .sheet-bg{ position:absolute; inset:0; background:var(--scrim); }
-.sheet{ position:relative; width:100%; max-width:560px; max-height:min(86vh, 760px); overflow:auto; display:grid; gap:14px; align-content:start; border-radius:16px 16px 0 0; background:var(--surface); box-shadow:var(--pop);
+.sheet{ position:relative; width:100%; max-width:560px; max-height:min(86vh, 760px); overflow:auto; display:grid; grid-template-columns:minmax(0,1fr); gap:14px; align-content:start; border-radius:16px 16px 0 0; background:var(--surface); box-shadow:var(--pop);
   padding:18px max(18px, env(safe-area-inset-right,0px)) calc(20px + env(safe-area-inset-bottom,0px)) max(18px, env(safe-area-inset-left,0px)); }
 @media (min-width:640px){ .sheet-wrap{ align-items:center; } .sheet{ border-radius:16px; } }
 .sheet-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
@@ -342,6 +342,64 @@ body.has-clock .toast{ bottom:calc(166px + env(safe-area-inset-bottom,0px)); }
 .my-ex li{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 2px; border-bottom:1px solid var(--line); }
 .my-ex li > div{ display:grid; gap:1px; min-width:0; }
 .my-ex b{ font-weight:600; overflow-wrap:anywhere; }
+
+/* calories */
+.cal{ display:grid; gap:14px; padding:16px; border-radius:12px; border:1px solid var(--line); background:var(--surface); }
+.cal-day{ display:flex; align-items:center; gap:2px; }
+.cal-day button{ all:unset; cursor:pointer; width:36px; height:36px; display:grid; place-items:center; border-radius:8px; color:var(--muted); font-size:20px; line-height:1; }
+.cal-day button:hover:not(:disabled){ background:var(--surface-2); color:var(--ink); }
+.cal-day button:disabled{ opacity:.3; cursor:default; }
+.cal-day .lbl{ font-size:14px; font-weight:600; padding:0 4px; white-space:nowrap; }
+.cal-nums{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); margin:0; }
+.cal-nums > div{ display:grid; gap:1px; align-content:start; min-width:0; padding:0 10px; border-left:1px solid var(--line); }
+.cal-nums > div:first-child{ padding-left:0; border-left:0; }
+.cal-nums dt{ font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); }
+.cal-nums dd{ margin:0; font-family:var(--f-num); font-weight:700; font-size:28px; line-height:1.05; font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+.cal-nums dd.sub{ font-family:var(--f-body); font-size:12px; font-weight:500; line-height:1.3; color:var(--muted); }
+.cal-in{ color:var(--accent); }
+.cal-out{ color:var(--gold); }
+.cal-ok{ color:var(--good); }
+.cal-bad{ color:var(--danger); }
+.cal-goal{ display:grid; gap:6px; }
+.cal-goal p{ margin:0; font-size:13px; color:var(--muted); }
+.cal-goal p b{ color:var(--ink); font-weight:600; }
+.cal-track{ position:relative; height:10px; border-radius:5px; background:var(--surface-2); overflow:hidden; }
+.cal-track i{ position:absolute; top:0; bottom:0; left:0; border-radius:5px; background:var(--accent); }
+.cal-track i.over{ background:var(--danger); }
+.cal-btns{ display:flex; flex-wrap:wrap; gap:8px; }
+.cal-btns .btn{ flex:1 1 100px; }
+.cal-week{ display:grid; gap:6px; }
+.cal-week svg{ display:block; width:100%; height:auto; }
+.cal-week text{ font-family:var(--f-num); font-size:11px; fill:var(--muted); font-variant-numeric:tabular-nums; }
+.cal-week text.cur{ fill:var(--ink); font-weight:700; }
+.cal-week .hit{ fill:transparent; cursor:pointer; }
+.cal-week .bar, .cal-week text{ pointer-events:none; }
+.cal-week .hit:hover{ fill:var(--surface-2); fill-opacity:.6; }
+.cal-legend{ display:flex; flex-wrap:wrap; gap:4px 14px; font-size:12px; color:var(--muted); }
+.cal-legend i{ display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:5px; vertical-align:-1px; }
+.cal-setup{ display:grid; gap:8px; justify-items:start; padding:12px 14px; border-radius:10px; background:var(--accent-soft); }
+.cal-setup p{ margin:0; font-size:14px; }
+.cal-sec{ display:grid; gap:8px; }
+.cal-sec-h{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; }
+.cal-sec-h h3{ font-family:var(--f-display); font-weight:800; font-size:22px; text-transform:uppercase; }
+.cal-sec-h span{ font-family:var(--f-num); font-weight:700; font-size:18px; font-variant-numeric:tabular-nums; }
+.cal-list{ margin:0; padding:0; list-style:none; border-top:1px solid var(--line); }
+.cal-list li{ border-bottom:1px solid var(--line); }
+.cal-row{ all:unset; box-sizing:border-box; width:100%; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:1px 12px; align-items:center; padding:9px 2px; }
+button.cal-row{ cursor:pointer; }
+button.cal-row:hover{ background:var(--surface-2); }
+.cal-row .nm{ font-weight:600; overflow-wrap:anywhere; }
+.cal-row .sb{ grid-column:1; font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums; }
+.cal-row .kv{ grid-column:2; grid-row:1 / span 2; font-family:var(--f-num); font-weight:700; font-size:18px; font-variant-numeric:tabular-nums; }
+.cal-meal{ padding:8px 2px 2px; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); border-bottom:1px solid var(--line); }
+.macro{ display:flex; flex-wrap:wrap; gap:4px 16px; font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums; }
+.macro b{ color:var(--ink); font-family:var(--f-num); font-size:16px; font-weight:700; }
+.grid3{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:10px; }
+.grid2{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; }
+.field.big-num{ height:56px; font-family:var(--f-num); font-weight:700; font-size:28px; font-variant-numeric:tabular-nums; }
+.field.mid-num{ font-family:var(--f-num); font-weight:700; font-size:20px; text-align:center; font-variant-numeric:tabular-nums; }
+.inline-save{ display:flex; gap:8px; align-items:stretch; }
+.inline-save .field{ flex:1 1 0; width:0; min-width:0; }
 
 /* backup */
 .backup-box{ display:grid; gap:10px; padding:14px; border-radius:12px; border:1px solid var(--gold); background:var(--gold-soft); }
@@ -523,7 +581,7 @@ const S = {
 };
 const h0 = (location.hash||'').slice(1);
 if(['workout','history','progress','body','tools'].includes(h0)) S.tab = h0;
-S.bodyMetric = 'weight'; S.bf = null; S.pv = null; S.restore = null;
+S.bodyMetric = 'weight'; S.bf = null; S.pv = null; S.restore = null; S.calDay = null; S.cf = null; S.ca = null; S.cp = null; S.cfRecent = [];
 
 /* ---------- utils ---------- */
 function $(s, r){ return (r||document).querySelector(s); }
@@ -826,7 +884,8 @@ const DOC_OK = {
   body:d => /^\d{4}-\d{2}-\d{2}$/.test(d.date || ''),
   program:d => Array.isArray(d.items),
   settings:d => true,
-  active:d => true
+  active:d => true,
+  day:d => /^\d{4}-\d{2}-\d{2}$/.test(d.date || '') && Array.isArray(d.food) && Array.isArray(d.acts)
 };
 function cleanDocs(docs){
   if(!docs || typeof docs !== 'object') return null;
@@ -1113,7 +1172,7 @@ function viewStart(){
   const today = cap(DF({weekday:'long', day:'numeric', month:'long'}).format(new Date()));
   const mine = customPrograms();
   const last = S.loaded ? workouts()[0] : null;
-  let h = `<header class="page-head"><p class="eyebrow">${esc(today)}</p><h1>Тренировка</h1></header><!--blocks-->`;
+  let h = `<header class="page-head"><p class="eyebrow">${esc(today)}</p><h1>Тренировка</h1></header><!--cal--><!--blocks-->`;
   if(last){
     const sets = last.exercises.reduce((a, e) => a + e.sets.length, 0);
     h += `<section class="block"><div class="block-head"><h2>Последняя</h2></div>
@@ -1128,6 +1187,7 @@ function viewStart(){
     <div class="prog-grid">${PROGRAMS.map(p => progCard(p, false)).join('')}</div>
     <button type="button" class="btn btn-ghost wide big" data-act="start-empty">Начать пустую тренировку</button>
   </section>`;
+  h = h.replace('<!--cal-->', calBlock());
   const fresh = S.loaded && !workouts().length && !bodyEntries().length && !(S.settings.custom || []).length;
   const transfer = fresh ? `<section class="block" style="border-top:0;padding-top:4px"><div class="transfer">
       <h2>Перенос тренировок</h2>
@@ -1434,6 +1494,8 @@ function viewTools(){
   ${backupBlock()}
   <section class="block">
     <div class="block-head"><h2>Настройки</h2></div>
+    <div class="set-line"><div><b>Расчёт калорий</b><p class="hint">${calProfile() ? esc((S.settings.profile.sex === 'f' ? 'Женский' : 'Мужской') + ', рост ' + S.settings.profile.height + ' см, цель «' + (GOALS.find(g => g[0] === S.settings.profile.goal) || GOALS[1])[1] + '»') : 'Пол, возраст и рост для оценки расхода'}</p></div>
+      <button type="button" class="btn btn-small" data-act="cal-profile">${calProfile() ? 'Изменить' : 'Указать'}</button></div>
     <div class="fld"><span id="rest-lbl">Отдых между подходами, сек</span><div class="seg" role="group" aria-labelledby="rest-lbl">${[60,90,120,180,240].map(v => `<button type="button" data-act="set-rest" data-v="${v}" aria-pressed="${st.rest === v}">${v}</button>`).join('')}</div></div>
     <div class="set-line"><div><b>Сигнал в конце отдыха</b><p class="hint">Три коротких гудка и вибрация, если телефон её поддерживает.</p></div>
       <button type="button" class="switch" role="switch" aria-checked="${!!st.sound}" aria-label="Сигнал в конце отдыха" data-act="toggle-sound"><span></span></button></div>
@@ -1662,6 +1724,326 @@ function showCompare(){
   loadFull('#cmp-a', f.p.id); loadFull('#cmp-b', p.id);
 }
 
+/* ---------- calories ----------
+   Day documents "k-YYYY-MM-DD": {kind:'day', date, food:[{id,name,kcal,p,f,c,meal}], acts:[{id,type,name,min,kcal}], spent}
+   spent = number typed from a watch (overrides the estimate) or null.
+   Estimate = Mifflin–St Jeor BMR × activity outside the gym + workouts of that day + other activity.
+   Workouts and activities count (MET − 1) × kg × hours, i.e. only what is burned above the base. */
+const MEALS = ['Завтрак','Обед','Ужин','Перекус'];
+const ACT_PRESETS = [
+  ['walk','Ходьба',3.5], ['fastwalk','Быстрая ходьба',5], ['run','Бег',9], ['bike','Велосипед',7],
+  ['swim','Плавание',6], ['board','Сноуборд, лыжи',5.3], ['games','Футбол, игры',7], ['home','Работа по дому, на участке',3.5],
+  ['custom','Своё',0]
+];
+const ACT_LEVELS = [[1.2,'Сидячая работа','Офис, машина, мало хожу'],[1.375,'Умеренно на ногах','Хожу 1–2 часа в день'],[1.55,'Физическая работа','Весь день в движении']];
+const GOALS = [['cut','Похудеть','съедать на 500 ккал меньше расхода'],['keep','Держать вес','съедать столько же, сколько тратите'],['bulk','Набрать массу','съедать на 300 ккал больше расхода']];
+const CARDIO_MET = {treadmill:8, 'incline-walk':6, bike:7, rower:7, elliptical:5, stepper:9, rope:11};
+const STRENGTH_MET = 5;
+const fDayLong = DF({weekday:'long', day:'numeric', month:'long'});
+
+function dsOf(ts){ const d = new Date(ts); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+function addDays(ds, k){ const d = dateOf(ds); d.setDate(d.getDate() + k); return dsOf(d.getTime()); }
+function calDay(){ return S.calDay || todayStr(); }
+function dayLabel(ds){
+  const t = todayStr();
+  if(ds === t) return 'Сегодня';
+  if(ds === addDays(t, -1)) return 'Вчера';
+  return cap(fDayLong.format(dateOf(ds)));
+}
+function dayDoc(ds){ const d = S.docs['k-' + ds]; return d && d.kind === 'day' ? d : null; }
+function dayOrNew(ds){
+  const d = dayDoc(ds);
+  const o = d ? clone(d) : {kind:'day', id:'k-' + ds, date:ds, food:[], acts:[], spent:null};
+  if(!Array.isArray(o.food)) o.food = [];
+  if(!Array.isArray(o.acts)) o.acts = [];
+  return o;
+}
+function saveDay(d){
+  d.updatedAt = Date.now();
+  if(!d.food.length && !d.acts.length && d.spent == null) Store.del(d.id); else Store.put(d.id, d);
+}
+function calProfile(){ const p = S.settings.profile; return p && p.height && p.birthYear && p.sex ? p : null; }
+function weightOn(ds){
+  const es = bodyEntries().filter(e => e.weight != null);
+  const hit = es.find(e => e.date <= ds) || es[es.length - 1];
+  if(hit) return +hit.weight;
+  const p = S.settings.profile;
+  return p && p.weight ? +p.weight : null;
+}
+function cardioMet(exId, t, d){
+  if(exId === 'treadmill' && t > 0 && d > 0){
+    const v = d/(t/60);
+    return v < 4 ? 2.8 : v < 5 ? 3.5 : v < 6 ? 4.3 : v < 7 ? 6 : v < 8.5 ? 8.3 : v < 10 ? 9.8 : v < 11.5 ? 11 : 11.8;
+  }
+  return CARDIO_MET[exId] || 7;
+}
+function workoutKcal(w, kg){
+  let cmin = 0, ck = 0, sets = 0;
+  for(const e of w.exercises || []){
+    if(e.cardio || isCardioId(e.exId)){
+      for(const st of e.sets){ const t = +st.t || 0; cmin += t; ck += (cardioMet(e.exId, t, +st.d || 0) - 1)*kg*t/60; }
+    } else sets += e.sets.length;
+  }
+  const dur = Math.max(0, ((w.finishedAt || w.startedAt) - w.startedAt)/60000);
+  const smin = sets ? Math.min(Math.max(dur - cmin, sets*2.5), sets*4) : 0;
+  return {kcal:Math.round(ck + (STRENGTH_MET - 1)*kg*smin/60), min:Math.round(smin + cmin)};
+}
+function dayCalc(ds){
+  const d = dayDoc(ds), p = calProfile();
+  const food = d && Array.isArray(d.food) ? d.food : [], acts = d && Array.isArray(d.acts) ? d.acts : [];
+  const eaten = Math.round(food.reduce((a, f) => a + (+f.kcal || 0), 0));
+  const mac = {p:0, f:0, c:0, any:false};
+  food.forEach(x => { for(const k of ['p','f','c']) if(x[k] != null){ mac[k] += +x[k] || 0; mac.any = true; } });
+  const kg = weightOn(ds);
+  let bmr = null;
+  if(p && kg){ const age = dateOf(ds).getFullYear() - p.birthYear; bmr = 10*kg + 6.25*p.height - 5*age + (p.sex === 'f' ? -161 : 5); }
+  const base = bmr != null ? Math.round(bmr*(p.act || 1.2)) : null;
+  const wos = kg ? workouts().filter(w => dsOf(w.startedAt) === ds).map(w => Object.assign({w}, workoutKcal(w, kg))) : [];
+  const woK = wos.reduce((a, x) => a + x.kcal, 0);
+  const actK = Math.round(acts.reduce((a, x) => a + (+x.kcal || 0), 0));
+  const manual = d && d.spent != null ? Math.round(+d.spent) : null;
+  const spent = manual != null ? manual : base != null ? base + woK + actK : null;
+  const goal = (p && p.goal) || 'keep';
+  const target = spent != null ? Math.max(1200, spent + (goal === 'cut' ? -500 : goal === 'bulk' ? 300 : 0)) : null;
+  return {ds, food, acts, eaten, mac, kg, bmr, base, wos, woK, actK, manual, spent, goal, target, balance:spent != null ? eaten - spent : null};
+}
+function balanceInfo(c){
+  if(c.balance == null) return {txt:'—', sub:'нужен расход', cls:''};
+  const b = c.balance, ab = Math.abs(b);
+  const sub = ab < 50 ? 'в ноль' : b < 0 ? 'дефицит' : 'профицит';
+  let cls = '';
+  if(c.eaten > 0){
+    if(c.goal === 'cut') cls = b <= -250 ? 'cal-ok' : b > 100 ? 'cal-bad' : '';
+    else if(c.goal === 'bulk') cls = b >= 100 ? 'cal-ok' : b < -250 ? 'cal-bad' : '';
+    else cls = ab <= 250 ? 'cal-ok' : ab > 500 ? 'cal-bad' : '';
+  }
+  return {txt:(b > 0 ? '+' : b < 0 ? '−' : '') + fmtN(ab), sub, cls};
+}
+function macroLine(m){
+  return `<div class="macro"><span>Белки <b>${fmtN(Math.round(m.p))}</b> г</span><span>Жиры <b>${fmtN(Math.round(m.f))}</b> г</span><span>Углеводы <b>${fmtN(Math.round(m.c))}</b> г</span></div>`;
+}
+function calNums(c){
+  const bi = balanceInfo(c);
+  const eatSub = c.food.length ? c.food.length + ' ' + plural(c.food.length, ['запись','записи','записей']) : 'пока пусто';
+  const spentSub = c.manual != null ? 'по данным часов' : c.spent != null ? 'оценка за день' : 'укажите профиль';
+  return `<dl class="cal-nums">
+    <div><dt>Съедено</dt><dd class="cal-in">${fmtN(c.eaten)}</dd><dd class="sub">${esc(eatSub)}</dd></div>
+    <div><dt>Потрачено</dt><dd class="cal-out">${c.spent != null ? fmtN(c.spent) : '—'}</dd><dd class="sub">${esc(spentSub)}</dd></div>
+    <div><dt>Баланс</dt><dd class="${bi.cls}">${bi.txt}</dd><dd class="sub">${esc(bi.sub)}</dd></div>
+  </dl>`;
+}
+function calGoal(c){
+  if(c.target == null) return '';
+  const g = GOALS.find(x => x[0] === c.goal) || GOALS[1];
+  const left = c.target - c.eaten;
+  const pctW = Math.min(100, c.eaten/c.target*100).toFixed(1);
+  const msg = left >= 0 ? `осталось <b>${fmtN(left)}</b> ккал` : `перебор <b>${fmtN(-left)}</b> ккал`;
+  return `<div class="cal-goal"><p>Цель «${esc(g[1])}»: до <b>${fmtN(c.target)}</b> ккал, ${msg}</p>
+    <div class="cal-track" role="img" aria-label="Съедено ${fmtN(c.eaten)} из ${fmtN(c.target)} ккал"><i class="${left < 0 ? 'over' : ''}" style="width:${pctW}%"></i></div></div>`;
+}
+function calBlock(){
+  if(!S.loaded) return '';
+  const ds = calDay(), c = dayCalc(ds), today = todayStr();
+  const setup = c.manual == null && !calProfile() ? `<div class="cal-setup"><p>Чтобы считать потраченные калории, укажите пол, возраст и рост. Вес возьмётся из «Замеров».</p><button type="button" class="btn btn-small btn-primary" data-act="cal-profile">Указать</button></div>` : '';
+  return `<section class="block">
+    <div class="block-head row"><h2>Калории</h2>
+      <div class="cal-day"><button type="button" data-act="cal-prev" aria-label="Предыдущий день">‹</button><span class="lbl">${esc(dayLabel(ds))}</span><button type="button" data-act="cal-next" aria-label="Следующий день"${ds >= today ? ' disabled' : ''}>›</button></div>
+    </div>
+    <div class="cal">
+      ${calNums(c)}
+      ${calGoal(c)}
+      ${c.mac.any ? macroLine(c.mac) : ''}
+      ${setup}
+      <div class="cal-btns"><button type="button" class="btn btn-primary" data-act="cal-food">+ Еда</button><button type="button" class="btn" data-act="cal-act">+ Активность</button><button type="button" class="btn" data-act="cal-detail">За день</button></div>
+      <div class="cal-week"><div class="cal-legend"><span><i style="background:var(--accent)"></i>Съедено</span><span><i style="background:var(--gold)"></i>Потрачено</span><span>за 7 дней, нажмите на день</span></div><div id="cal-week"></div></div>
+    </div>
+  </section>`;
+}
+function drawCalWeek(){
+  const el = $('#cal-week'); if(!el) return;
+  const end = calDay(), days = [];
+  for(let k = 6; k >= 0; k--) days.push(dayCalc(addDays(end, -k)));
+  const W = Math.max(280, el.clientWidth), H = 150, pl = 40, pr = 4, pt = 8, pb = 22;
+  const maxV = Math.max(1000, ...days.map(d => Math.max(d.eaten, d.spent || 0)));
+  const ticks = niceTicks(0, maxV, 2), top = ticks[ticks.length - 1] || 1;
+  const iw = W - pl - pr, ih = H - pt - pb, gw = iw/7, bw = Math.max(5, Math.min(16, gw*0.26));
+  const y = v => pt + ih - v/top*ih;
+  let s = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Съедено и потрачено за 7 дней">`;
+  for(const t of ticks){ const yy = y(t).toFixed(1); s += `<line x1="${pl}" x2="${W - pr}" y1="${yy}" y2="${yy}" stroke="var(--line)" stroke-width="1"${t ? ' stroke-dasharray="2 4"' : ''}/><text x="${pl - 6}" y="${(+yy + 4).toFixed(1)}" text-anchor="end">${fmtN(t)}</text>`; }
+  days.forEach((d, i) => {
+    s += `<rect class="hit" x="${(pl + gw*i).toFixed(1)}" y="${pt}" width="${gw.toFixed(1)}" height="${ih + pb - 2}" rx="6" data-act="cal-day" data-ds="${d.ds}"><title>${esc(dayLabel(d.ds))}: съедено ${fmtN(d.eaten)}, потрачено ${d.spent != null ? fmtN(d.spent) : '—'} ккал</title></rect>`;
+  });
+  days.forEach((d, i) => {
+    const cx = pl + gw*i + gw/2, cur = d.ds === end;
+    if(d.eaten > 0) s += `<rect class="bar" x="${(cx - bw - 1.5).toFixed(1)}" y="${y(d.eaten).toFixed(1)}" width="${bw.toFixed(1)}" height="${(pt + ih - y(d.eaten)).toFixed(1)}" rx="2" fill="var(--accent)"/>`;
+    if(d.spent) s += `<rect class="bar" x="${(cx + 1.5).toFixed(1)}" y="${y(d.spent).toFixed(1)}" width="${bw.toFixed(1)}" height="${(pt + ih - y(d.spent)).toFixed(1)}" rx="2" fill="var(--gold)"/>`;
+    s += `<text x="${cx.toFixed(1)}" y="${H - 6}" text-anchor="middle" class="${cur ? 'cur' : ''}">${esc(fWeekday.format(dateOf(d.ds)))}</text>`;
+  });
+  el.innerHTML = s + '</svg>';
+}
+
+function defaultMeal(ds){
+  if(ds !== todayStr()) return 'Обед';
+  const h = new Date().getHours();
+  return h < 11 ? 'Завтрак' : h < 16 ? 'Обед' : h < 21 ? 'Ужин' : 'Перекус';
+}
+function recentFoods(n){
+  const out = [], seen = new Set();
+  const days = Object.values(S.docs).filter(d => d && d.kind === 'day' && Array.isArray(d.food)).sort((a, b) => a.date < b.date ? 1 : -1);
+  for(const d of days) for(let i = d.food.length - 1; i >= 0; i--){
+    const f = d.food[i], key = String(f.name || '').trim().toLowerCase();
+    if(!key || seen.has(key)) continue;
+    seen.add(key); out.push(f);
+    if(out.length >= n) return out;
+  }
+  return out;
+}
+function numField(id, label, val, cls, ph){
+  return `<div class="fld"><label for="${id}">${label}</label><input id="${id}" class="field ${cls || 'mid-num'}" type="text" inputmode="decimal" autocomplete="off" value="${val == null ? '' : esc(fmtIn(val))}"${ph ? ` placeholder="${esc(ph)}"` : ''}></div>`;
+}
+function openFood(ds, id, back){
+  const d = dayDoc(ds), f = id && d ? (d.food || []).find(x => x.id === id) : null;
+  S.cf = {ds, id:f ? f.id : null, meal:f ? f.meal : defaultMeal(ds), back:!!back};
+  S.cfRecent = f ? [] : recentFoods(10);
+  openSheet(`<div class="sheet-head"><h2>${f ? 'Изменить запись' : 'Еда'}</h2><button type="button" class="icon-btn" data-act="close-sheet" aria-label="Закрыть">✕</button></div>
+    <p class="hint">${esc(dayLabel(ds))}</p>
+    ${S.cfRecent.length ? `<div class="fld"><span>Недавние</span><div class="chips wrap">${S.cfRecent.map((r, i) => `<button type="button" class="chip-btn" data-act="cf-recent" data-n="${i}">${esc(r.name)} · ${fmtN(r.kcal)}</button>`).join('')}</div></div>` : ''}
+    <div class="fld"><label for="cf-name">Что съели</label><input id="cf-name" class="field" maxlength="60" autocomplete="off" placeholder="Например: гречка с курицей" value="${f ? esc(f.name || '') : ''}"></div>
+    ${numField('cf-kcal', 'Калории, ккал', f ? f.kcal : null, 'big-num', '0')}
+    <div class="grid3">${numField('cf-p', 'Белки, г', f ? f.p : null)}${numField('cf-f', 'Жиры, г', f ? f.f : null)}${numField('cf-c', 'Углеводы, г', f ? f.c : null)}</div>
+    <div class="fld"><span>Приём пищи</span><div class="chips wrap">${MEALS.map(m => `<button type="button" class="chip-btn" data-act="cf-meal" data-v="${m}" aria-pressed="${m === S.cf.meal}">${m}</button>`).join('')}</div></div>
+    <p class="hint danger" id="cf-err" hidden></p>
+    <button type="button" class="btn btn-primary big" data-act="cf-save">Сохранить</button>
+    ${f ? '<button type="button" class="btn btn-text danger" data-act="cf-del">Удалить запись</button>' : ''}`);
+  if(!f){ const k = $('#cf-kcal'); if(k) k.focus({preventScroll:true}); }
+}
+function cfSave(){
+  const st = S.cf; if(!st) return;
+  const err = $('#cf-err'), fail = (m, id) => { err.textContent = m; err.hidden = false; if(id) $(id).focus(); };
+  const kcal = num($('#cf-kcal').value), pv = num($('#cf-p').value), fv = num($('#cf-f').value), cv = num($('#cf-c').value);
+  if(kcal == null || kcal <= 0 || kcal > 10000) return fail('Впишите калории: от 1 до 10 000 ккал', '#cf-kcal');
+  for(const [v, id] of [[pv,'#cf-p'],[fv,'#cf-f'],[cv,'#cf-c']]) if(v != null && (v < 0 || v > 1000)) return fail('Белки, жиры и углеводы — от 0 до 1000 г', id);
+  const name = ($('#cf-name').value || '').trim().replace(/\s+/g, ' ').slice(0, 60) || st.meal;
+  const d = dayOrNew(st.ds);
+  const item = {id:st.id || 'f' + uid(), name, kcal:Math.round(kcal), p:pv, f:fv, c:cv, meal:st.meal};
+  const i = d.food.findIndex(x => x.id === item.id);
+  if(i > -1) d.food[i] = item; else d.food.push(item);
+  saveDay(d);
+  const back = st.back; S.cf = null;
+  afterCalEdit(back, i > -1 ? 'Запись изменена' : `Добавлено ${fmtN(item.kcal)} ккал`);
+}
+function afterCalEdit(back, msg){
+  if(back) openDayDetail(); else closeSheet();
+  render();
+  if(msg) toast(msg);
+}
+
+function openAct(ds, id, back){
+  const d = dayDoc(ds), a = id && d ? (d.acts || []).find(x => x.id === id) : null;
+  S.ca = {ds, id:a ? a.id : null, type:a ? a.type : 'walk', kcalTouched:!!(a && a.type === 'custom'), back:!!back};
+  const kg = weightOn(ds);
+  openSheet(`<div class="sheet-head"><h2>${a ? 'Изменить активность' : 'Активность'}</h2><button type="button" class="icon-btn" data-act="close-sheet" aria-label="Закрыть">✕</button></div>
+    <p class="hint">${esc(dayLabel(ds))}. Тренировки из журнала считаются сами — сюда вписывайте всё остальное.</p>
+    <div class="fld"><span>Что делали</span><div class="chips wrap">${ACT_PRESETS.map(([k, n]) => `<button type="button" class="chip-btn" data-act="ca-type" data-v="${k}" aria-pressed="${k === S.ca.type}">${n}</button>`).join('')}</div></div>
+    <div class="fld" id="ca-name-wrap"${S.ca.type === 'custom' ? '' : ' hidden'}><label for="ca-name">Название</label><input id="ca-name" class="field" maxlength="50" autocomplete="off" placeholder="Например: баня, прогулка с собакой" value="${a && a.type === 'custom' ? esc(a.name || '') : ''}"></div>
+    <div class="grid2">${numField('ca-min', 'Минуты', a ? a.min : null, 'mid-num', '0')}${numField('ca-kcal', 'Потрачено, ккал', a ? a.kcal : null, 'mid-num', '0')}</div>
+    <p class="hint" id="ca-hint">${kg ? `Калории считаются по минутам и весу ${fmtN(kg)} кг — можно вписать свою цифру.` : 'Впишите калории — для расчёта по минутам нужен вес в «Замерах».'}</p>
+    <p class="hint danger" id="ca-err" hidden></p>
+    <button type="button" class="btn btn-primary big" data-act="ca-save">Сохранить</button>
+    ${a ? '<button type="button" class="btn btn-text danger" data-act="ca-del">Удалить</button>' : ''}`);
+}
+function caRecalc(){
+  const st = S.ca; if(!st || st.kcalTouched || st.type === 'custom') return;
+  const pr = ACT_PRESETS.find(x => x[0] === st.type), kg = weightOn(st.ds), m = num($('#ca-min').value);
+  if(!pr || !kg || !m) return;
+  $('#ca-kcal').value = String(Math.round((pr[2] - 1)*kg*m/60));
+}
+function caSave(){
+  const st = S.ca; if(!st) return;
+  const err = $('#ca-err'), fail = (m, id) => { err.textContent = m; err.hidden = false; if(id) $(id).focus(); };
+  const m = num($('#ca-min').value), k = num($('#ca-kcal').value);
+  if(m != null && (m <= 0 || m > 1440)) return fail('Минуты — от 1 до 1440', '#ca-min');
+  if(k == null || k <= 0 || k > 10000) return fail(st.type === 'custom' || !weightOn(st.ds) ? 'Впишите, сколько калорий потратили' : 'Впишите минуты или калории', m == null ? '#ca-min' : '#ca-kcal');
+  const pr = ACT_PRESETS.find(x => x[0] === st.type);
+  const name = st.type === 'custom' ? (($('#ca-name').value || '').trim().slice(0, 50) || 'Активность') : pr[1];
+  const d = dayOrNew(st.ds);
+  const item = {id:st.id || 'a' + uid(), type:st.type, name, min:m, kcal:Math.round(k)};
+  const i = d.acts.findIndex(x => x.id === item.id);
+  if(i > -1) d.acts[i] = item; else d.acts.push(item);
+  saveDay(d);
+  const back = st.back; S.ca = null;
+  afterCalEdit(back, i > -1 ? 'Активность изменена' : `${name}: ${fmtN(item.kcal)} ккал`);
+}
+
+function openDayDetail(){
+  const ds = calDay(), c = dayCalc(ds), p = calProfile();
+  const byMeal = MEALS.map(m => [m, c.food.filter(f => (f.meal || 'Перекус') === m)]).filter(x => x[1].length);
+  const foodList = c.food.length ? `<ul class="cal-list">${byMeal.map(([m, list]) => `<li class="cal-meal">${m} · ${fmtN(list.reduce((a, f) => a + (+f.kcal || 0), 0))} ккал</li>` + list.map(f => {
+      const mc = ['p','f','c'].filter(k => f[k] != null).map(k => ({p:'Б',f:'Ж',c:'У'})[k] + ' ' + fmtN(f[k])).join(' · ');
+      return `<li><button type="button" class="cal-row" data-act="cf-edit" data-id="${esc(f.id)}"><span class="nm">${esc(f.name)}</span>${mc ? `<span class="sb">${esc(mc)}</span>` : ''}<span class="kv">${fmtN(f.kcal)}</span></button></li>`;
+    }).join('')).join('')}</ul>` : '<p class="hint">Еды за этот день нет.</p>';
+  const act = p ? (ACT_LEVELS.find(x => x[0] === p.act) || ACT_LEVELS[0]) : null;
+  let spendRows = '';
+  if(c.base != null) spendRows += `<li><div class="cal-row"><span class="nm">Базовый обмен</span><span class="sb">${fmtN(Math.round(c.bmr))} ккал × ${fmtN(p.act || 1.2)} — ${esc(act[1].toLowerCase())}, вес ${fmtN(c.kg)} кг</span><span class="kv">${fmtN(c.base)}</span></div></li>`;
+  for(const x of c.wos) spendRows += `<li><div class="cal-row"><span class="nm">Тренировка «${esc(x.w.name)}»</span><span class="sb">около ${x.min} мин в работе</span><span class="kv">${fmtN(x.kcal)}</span></div></li>`;
+  for(const a of c.acts) spendRows += `<li><button type="button" class="cal-row" data-act="ca-edit" data-id="${esc(a.id)}"><span class="nm">${esc(a.name)}</span>${a.min ? `<span class="sb">${fmtN(a.min)} мин</span>` : ''}<span class="kv">${fmtN(a.kcal)}</span></button></li>`;
+  const estimate = c.base != null ? c.base + c.woK + c.actK : null;
+  openSheet(`<div class="sheet-head"><h2>${esc(dayLabel(ds))}</h2><button type="button" class="icon-btn" data-act="close-sheet" aria-label="Закрыть">✕</button></div>
+    ${calNums(c)}
+    ${calGoal(c)}
+    <section class="cal-sec">
+      <div class="cal-sec-h"><h3>Еда</h3><span class="cal-in">${fmtN(c.eaten)}</span></div>
+      ${c.mac.any ? macroLine(c.mac) : ''}
+      ${foodList}
+      <button type="button" class="btn" data-act="cf-new-in">+ Добавить еду</button>
+    </section>
+    <section class="cal-sec">
+      <div class="cal-sec-h"><h3>Расход</h3><span class="cal-out">${c.spent != null ? fmtN(c.spent) : '—'}</span></div>
+      ${c.manual != null ? `<p class="hint">Расход взят с часов: ${fmtN(c.manual)} ккал. Оценка ниже${estimate != null ? ` (${fmtN(estimate)} ккал)` : ''} не учитывается.</p>` : ''}
+      ${spendRows ? `<ul class="cal-list">${spendRows}</ul>` : `<p class="hint">${p ? 'Нет данных о весе: добавьте взвешивание в «Замерах».' : 'Расход не считается: укажите пол, возраст и рост.'}</p>`}
+      <button type="button" class="btn" data-act="ca-new-in">+ Добавить активность</button>
+      <div class="fld"><label for="cal-spent">Расход с часов или браслета, ккал</label>
+        <div class="inline-save"><input id="cal-spent" class="field mid-num" type="text" inputmode="numeric" autocomplete="off" placeholder="не указан" value="${c.manual != null ? c.manual : ''}"><button type="button" class="btn" data-act="cal-spent-save">Сохранить</button>${c.manual != null ? '<button type="button" class="btn btn-text danger" data-act="cal-spent-clear">Сбросить</button>' : ''}</div>
+        <span class="hint" style="text-transform:none;letter-spacing:0">Если вписать — заменит оценку за этот день. Берите «Активная + в покое» за весь день.</span></div>
+    </section>
+    <button type="button" class="btn btn-text" data-act="cal-profile">Пол, возраст, рост и цель</button>`);
+}
+
+function openCalProfile(){
+  const p = S.settings.profile || {};
+  const hasW = bodyEntries().some(e => e.weight != null);
+  S.cp = {sex:p.sex || null, act:p.act || 1.2, goal:p.goal || 'keep'};
+  const lw = hasW ? bodyEntries().find(e => e.weight != null).weight : null;
+  openSheet(`<div class="sheet-head"><h2>Расчёт калорий</h2><button type="button" class="icon-btn" data-act="close-sheet" aria-label="Закрыть">✕</button></div>
+    <p class="hint">Нужны для оценки расхода: базовый обмен по формуле Миффлина — Сан Жеора, плюс тренировки и активность.</p>
+    <div class="fld"><span>Пол</span><div class="seg" role="group" aria-label="Пол"><button type="button" data-act="cp-sex" data-v="m" aria-pressed="${S.cp.sex === 'm'}">Мужской</button><button type="button" data-act="cp-sex" data-v="f" aria-pressed="${S.cp.sex === 'f'}">Женский</button></div></div>
+    <div class="grid2">
+      <div class="fld"><label for="cp-year">Год рождения</label><input id="cp-year" class="field mid-num" type="text" inputmode="numeric" autocomplete="off" maxlength="4" value="${p.birthYear || ''}"></div>
+      <div class="fld"><label for="cp-h">Рост, см</label><input id="cp-h" class="field mid-num" type="text" inputmode="numeric" autocomplete="off" maxlength="3" value="${p.height || ''}"></div>
+    </div>
+    ${hasW ? `<p class="hint">Вес берётся из «Замеров» на каждый день. Последний: ${fmtN(lw)} кг.</p>` : numField('cp-w', 'Вес, кг', p.weight, 'mid-num')}
+    <div class="fld"><span>Вне зала</span><div class="opts">${ACT_LEVELS.map(([v, l, d]) => `<button type="button" class="opt" data-act="cp-act" data-v="${v}" aria-pressed="${v === S.cp.act}"><b>${l}</b><span>${d}</span></button>`).join('')}</div></div>
+    <div class="fld"><span>Цель</span><div class="opts">${GOALS.map(([v, l, d]) => `<button type="button" class="opt" data-act="cp-goal" data-v="${v}" aria-pressed="${v === S.cp.goal}"><b>${l}</b><span>${d}</span></button>`).join('')}</div></div>
+    <p class="hint danger" id="cp-err" hidden></p>
+    <button type="button" class="btn btn-primary big" data-act="cp-save">Сохранить</button>`);
+}
+function cpSave(){
+  const st = S.cp; if(!st) return;
+  const err = $('#cp-err'), fail = (m, id) => { err.textContent = m; err.hidden = false; if(id && $(id)) $(id).focus(); };
+  const y = num($('#cp-year').value), h = num($('#cp-h').value), wEl = $('#cp-w'), w = wEl ? num(wEl.value) : null;
+  const cy = new Date().getFullYear();
+  if(!st.sex) return fail('Выберите пол');
+  if(!y || y < cy - 100 || y > cy - 12) return fail('Год рождения — четыре цифры, например 1990', '#cp-year');
+  if(!h || h < 120 || h > 230) return fail('Рост — от 120 до 230 см', '#cp-h');
+  if(wEl && (!w || w < 30 || w > 300)) return fail('Вес — от 30 до 300 кг', '#cp-w');
+  S.settings.profile = Object.assign({}, S.settings.profile || {}, {sex:st.sex, birthYear:Math.round(y), height:Math.round(h), act:st.act, goal:st.goal});
+  if(wEl) S.settings.profile.weight = w;
+  saveSettings();
+  S.cp = null; closeSheet(); render();
+  toast('Расчёт калорий настроен');
+}
+function syncPressed(act, v){ document.querySelectorAll(`[data-act="${act}"]`).forEach(x => x.setAttribute('aria-pressed', String(x.dataset.v === String(v)))); }
+
 /* ---------- render ---------- */
 function render(){
   const m = $('#main');
@@ -1676,6 +2058,7 @@ function render(){
   const wb = $('.nav [data-tab="workout"]'); if(S.active) wb.setAttribute('data-live', ''); else wb.removeAttribute('data-live');
   if(S.tab === 'progress'){ drawWeeks(); drawEx(); }
   if(S.tab === 'body') drawBody();
+  if(S.tab === 'workout' && !S.active) drawCalWeek();
   S.needRender = false;
 }
 function typing(){ const a = document.activeElement; return a && $('#main').contains(a) && /^(INPUT|SELECT)$/.test(a.tagName); }
@@ -1904,6 +2287,58 @@ document.addEventListener('click', async e => {
       S.active.exercises.splice(i, 1); touchActive(true); render();
       break;
     }
+    case 'cal-prev': S.calDay = addDays(calDay(), -1); render(); break;
+    case 'cal-next': { const n = addDays(calDay(), 1); S.calDay = n >= todayStr() ? null : n; render(); break; }
+    case 'cal-day': S.calDay = b.dataset.ds >= todayStr() ? null : b.dataset.ds; render(); break;
+    case 'cal-food': openFood(calDay(), null, false); break;
+    case 'cf-new-in': openFood(calDay(), null, true); break;
+    case 'cf-edit': openFood(calDay(), id, true); break;
+    case 'cf-recent': {
+      const r = S.cfRecent[+b.dataset.n]; if(!r) break;
+      $('#cf-name').value = r.name || ''; $('#cf-kcal').value = fmtIn(r.kcal);
+      $('#cf-p').value = fmtIn(r.p); $('#cf-f').value = fmtIn(r.f); $('#cf-c').value = fmtIn(r.c);
+      $('#cf-kcal').focus();
+      break;
+    }
+    case 'cf-meal': if(S.cf){ S.cf.meal = b.dataset.v; syncPressed('cf-meal', S.cf.meal); } break;
+    case 'cf-save': cfSave(); break;
+    case 'cf-del': {
+      const st = S.cf; if(!st) break;
+      const d = dayOrNew(st.ds); d.food = d.food.filter(x => x.id !== st.id); saveDay(d);
+      S.cf = null; afterCalEdit(st.back, 'Запись удалена');
+      break;
+    }
+    case 'cal-act': openAct(calDay(), null, false); break;
+    case 'ca-new-in': openAct(calDay(), null, true); break;
+    case 'ca-edit': openAct(calDay(), id, true); break;
+    case 'ca-type': {
+      if(!S.ca) break;
+      S.ca.type = b.dataset.v; syncPressed('ca-type', S.ca.type);
+      $('#ca-name-wrap').hidden = S.ca.type !== 'custom';
+      if(S.ca.type === 'custom'){ S.ca.kcalTouched = true; $('#ca-name').focus(); } else { S.ca.kcalTouched = false; caRecalc(); }
+      break;
+    }
+    case 'ca-save': caSave(); break;
+    case 'ca-del': {
+      const st = S.ca; if(!st) break;
+      const d = dayOrNew(st.ds); d.acts = d.acts.filter(x => x.id !== st.id); saveDay(d);
+      S.ca = null; afterCalEdit(st.back, 'Активность удалена');
+      break;
+    }
+    case 'cal-detail': openDayDetail(); break;
+    case 'cal-spent-save': {
+      const v = num($('#cal-spent').value);
+      if(v == null || v < 800 || v > 10000){ toast('Расход за день — от 800 до 10 000 ккал'); $('#cal-spent').focus(); break; }
+      const d = dayOrNew(calDay()); d.spent = Math.round(v); saveDay(d);
+      afterCalEdit(true, 'Расход с часов сохранён');
+      break;
+    }
+    case 'cal-spent-clear': { const d = dayOrNew(calDay()); d.spent = null; saveDay(d); afterCalEdit(true, 'Снова считаю расход сам'); break; }
+    case 'cal-profile': openCalProfile(); break;
+    case 'cp-sex': if(S.cp){ S.cp.sex = b.dataset.v; syncPressed('cp-sex', S.cp.sex); } break;
+    case 'cp-act': if(S.cp){ S.cp.act = +b.dataset.v; syncPressed('cp-act', S.cp.act); } break;
+    case 'cp-goal': if(S.cp){ S.cp.goal = b.dataset.v; syncPressed('cp-goal', S.cp.goal); } break;
+    case 'cp-save': cpSave(); break;
     case 'body-new': openBodyForm(null); break;
     case 'body-edit': openBodyForm(id); break;
     case 'body-save': bodySave(); break;
@@ -2035,6 +2470,12 @@ document.addEventListener('input', e => {
     touchActive();
   } else if(t.id === 'wo-name' && S.active){ S.active.name = t.value; touchActive(); }
   else if(t.id === 'lib-q'){ S.libQ = t.value; fillLib(); }
+  else if(['cf-kcal','cf-p','cf-f','cf-c','ca-min','ca-kcal','cp-w','cal-spent'].includes(t.id)){
+    const c = t.value.replace(/[^\d.,]/g, '').slice(0, 6); if(c !== t.value) t.value = c;
+    if(t.id === 'ca-min') caRecalc();
+    else if(t.id === 'ca-kcal' && S.ca) S.ca.kcalTouched = c !== '';
+  }
+  else if(t.id === 'cp-year' || t.id === 'cp-h'){ const c = t.value.replace(/\D/g, '').slice(0, t.id === 'cp-year' ? 4 : 3); if(c !== t.value) t.value = c; }
   else if(t.id === 'bm-w' || t.id === 'bm-f'){ const c = t.value.replace(/[^\d.,]/g, '').slice(0, 5); if(c !== t.value) t.value = c; }
   else if(t.id === 't-target'){ S.tools.target = num(t.value); $('#plate-out').innerHTML = platesBlock(S.tools.target); }
   else if(t.id === 'w1' || t.id === 'r1'){
@@ -2060,6 +2501,10 @@ document.addEventListener('keydown', e => {
   }
   if(e.key === 'Enter' && t.id === 'prog-name'){ e.preventDefault(); $('[data-act="save-prog-ok"]').click(); }
   if(e.key === 'Enter' && t.id === 'nx-name'){ e.preventDefault(); nxSave(); }
+  if(e.key === 'Enter' && t.id && t.id.indexOf('cf-') === 0){ e.preventDefault(); cfSave(); }
+  if(e.key === 'Enter' && t.id && t.id.indexOf('ca-') === 0){ e.preventDefault(); caSave(); }
+  if(e.key === 'Enter' && t.id && t.id.indexOf('cp-') === 0){ e.preventDefault(); cpSave(); }
+  if(e.key === 'Enter' && t.id === 'cal-spent'){ e.preventDefault(); $('[data-act="cal-spent-save"]').click(); }
   if(e.key === 'Enter' && (t.id === 'bm-w' || t.id === 'bm-f' || t.id === 'bm-note')){
     e.preventDefault();
     if(t.id === 'bm-w') $('#bm-f').focus(); else if(t.id === 'bm-f') $('#bm-note').focus(); else bodySave();
@@ -2067,11 +2512,11 @@ document.addEventListener('keydown', e => {
 });
 document.addEventListener('visibilitychange', () => {
   if(document.visibilityState === 'hidden'){ flushActive(); Store.flushNow(); }
-  else if(S.active) keepAwake(true);
+  else { if(S.active) keepAwake(true); if(S.tab === 'workout' && !S.active && !typing() && $('#sheet').hidden) render(); }
 });
 window.addEventListener('pagehide', () => { flushActive(); Store.flushNow(); });
 let rsz = null;
-window.addEventListener('resize', () => { clearTimeout(rsz); rsz = setTimeout(() => { if(S.tab === 'progress'){ drawWeeks(); drawEx(); } if(S.tab === 'body') drawBody(); }, 150); });
+window.addEventListener('resize', () => { clearTimeout(rsz); rsz = setTimeout(() => { if(S.tab === 'progress'){ drawWeeks(); drawEx(); } if(S.tab === 'body') drawBody(); if(S.tab === 'workout' && !S.active) drawCalWeek(); }, 150); });
 setInterval(() => { if(S.active && S.tab === 'workout'){ const el = $('#st-time'); if(el) el.textContent = clockStr(Date.now() - S.active.startedAt); } }, 1000);
 
 render();
